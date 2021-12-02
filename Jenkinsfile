@@ -7,12 +7,7 @@ pipeline {
                 sh "git clone https://github.com/Phani-1982/spring-hello-world.git"
             }
         }
-         stage ('Build'){
-            steps{
-                sh "cd $WORKSPACE/spring-hello-world"
-                sh "mvn clean package"
-            }
-        }
+         
         stage('Deploy_Server_setup'){
             steps{
                 sh "ansible -m ping -i $WORKSPACE/spring-hello-world/inventory all"
@@ -20,10 +15,7 @@ pipeline {
                 sh "ansible-playbook -i $WORKSPACE/spring-hello-world/inventory $WORKSPACE/myplaybook.yml"
             }            
         }
-    }  
-    agent { dockerfile true }
-    stages {
-        stage('Deploy APP'){
+        stage('Build & Deploy APP in Docker'){
             agent{ label "deploy_server"}
             steps{
                 sh "sudo docker image build -t ceq_spring:1.0 ."
@@ -32,6 +24,4 @@ pipeline {
             }
         } 
     }
-        
-    
 }
