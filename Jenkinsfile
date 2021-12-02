@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage ('Code Download From GIT'){
             steps{
-                git 'https://github.com/hairavi10/spring-rest-hello-world.git'
+                git 'https://github.com/Phani-1982/spring-hello-world.git'
             }
         }
          stage ('Build'){
