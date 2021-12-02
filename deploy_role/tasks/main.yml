@@ -1,0 +1,13 @@
+---
+# tasks file for cloudeq_ansible
+- name: Copy Dockerfile to Deployserver
+  become: true 
+  copy:
+    src: /var/lib/jenkins/workspace//var/lib/jenkins/workspace/cloudeq-spring/Dockerfile
+    dest: /home/jenkins/Dockerfile
+- name: Copy Artifact to Deployserver
+  become: true 
+  copy:
+    src: /var/lib/jenkins/workspace//var/lib/jenkins/workspace/cloudeq-spring/target/spring-rest-hello-world-1.0.2.jar
+    dest: /home/jenkins/spring-rest-hello-world-1.0.2.jar
+    
