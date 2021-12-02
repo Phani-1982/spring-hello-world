@@ -4,20 +4,20 @@ pipeline {
     stages{
         stage ('Code Download From GIT'){
             steps{
-                git 'https://github.com/Phani-1982/spring-hello-world.git'
+                sh "git clone https://github.com/Phani-1982/spring-hello-world.git"
             }
         }
          stage ('Build'){
             steps{
-                sh "cd $WORKSPACE"
+                sh "cd $WORKSPACE/spring-hello-world"
                 sh "mvn clean package"
             }
         }
         stage('Deploy_Server_setup'){
             steps{
-                sh "ansible -m ping -i $WORKSPACE/inventory all"
-                sh "ansible-playbook -i $WORKSPACE/inventory $WORKSPACE/myplaybook.yml --syntax-check"
-                sh "ansible-playbook -i $WORKSPACE/inventory $WORKSPACE/myplaybook.yml"
+                sh "ansible -m ping -i $WORKSPACE/spring-hello-world/inventory all"
+                sh "ansible-playbook -i $WORKSPACE/spring-hello-world/inventory $WORKSPACE/myplaybook.yml --syntax-check"
+                sh "ansible-playbook -i $WORKSPACE/spring-hello-world/inventory $WORKSPACE/myplaybook.yml"
             }            
         }
         stage('Deploy APP'){
