@@ -24,8 +24,8 @@ pipeline {
             agent{ label "deploy_server"}
             steps{
                 sh "cd /home/jenkins" 
-                sh "docker image build -t ceq_spring:1.0 ."
-                sh "docker container run -d -p 8081:8081 ceq_spring:1.0 "
+                sh "sudo docker image build -t ceq_spring:1.0 ."
+                sh "sudo docker container run -d -p 8081:8081 ceq_spring:1.0 "
                            
             }
         } 
